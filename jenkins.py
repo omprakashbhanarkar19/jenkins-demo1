@@ -51,14 +51,22 @@ def create_pipeline_job():
     server = jenkins.Jenkins(JENKINS_URL, username=USERNAME, password=PASSWORD)
     server.create_job(JOB_NAME, JOB_CONFIG)
 
-# Function to trigger a Jenkins pipeline build
-def trigger_pipeline_build():
+# Function to enable the "GitHub hook trigger for GITScm polling"
+def enable_github_webhook_trigger():
     server = jenkins.Jenkins(JENKINS_URL, username=USERNAME, password=PASSWORD)
-    server.build_job(JOB_NAME)
+    JOB_CONFIG = server.get_job_config(JOB_NAME)
+
 
 # Main function
 def main():
-    trigger_pipeline_build()
+    create_pipeline_job()
+
+if __name__ == "__main__":
+    main()
+
+
+def main():
+    enable_github_webhook_trigger()
 
 if __name__ == "__main__":
     main()
